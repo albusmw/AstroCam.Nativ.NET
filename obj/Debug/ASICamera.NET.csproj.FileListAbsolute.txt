@@ -1,0 +1,6 @@
+C:\GIT\AsiCamera.NET\bin\Debug\ASICamera.NET.dll
+C:\GIT\AsiCamera.NET\bin\Debug\ASICamera.NET.pdb
+C:\GIT\AsiCamera.NET\obj\Debug\ASICamera.NET.csprojAssemblyReference.cache
+C:\GIT\AsiCamera.NET\obj\Debug\ASICamera.NET.csproj.CoreCompileInputs.cache
+C:\GIT\AsiCamera.NET\obj\Debug\ASICamera.NET.dll
+C:\GIT\AsiCamera.NET\obj\Debug\ASICamera.NET.pdb
