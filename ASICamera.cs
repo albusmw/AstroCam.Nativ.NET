@@ -9,14 +9,14 @@ namespace ZWO
         public enum ASI_CONTROL_TYPE
         {
             ASI_GAIN = 0,
-            ASI_EXPOSURE,
+            ASI_EXPOSURE,               // time [us]
             ASI_GAMMA,
             ASI_WB_R,
             ASI_WB_B,
             ASI_BRIGHTNESS,
             ASI_BANDWIDTHOVERLOAD,
             ASI_OVERCLOCK,
-            ASI_TEMPERATURE,// return 10*temperature
+            ASI_TEMPERATURE,            // return 10*temperature
             ASI_FLIP,
             ASI_AUTO_MAX_GAIN,
             ASI_AUTO_MAX_EXP,
@@ -24,7 +24,7 @@ namespace ZWO
             ASI_HARDWARE_BIN,
             ASI_HIGH_SPEED_MODE,
             ASI_COOLER_POWER_PERC,
-            ASI_TARGET_TEMP,// not need *10
+            ASI_TARGET_TEMP,            // not need *10
             ASI_COOLER_ON,
             ASI_MONO_BIN,
             ASI_FAN_ON,
