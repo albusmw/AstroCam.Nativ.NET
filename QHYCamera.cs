@@ -75,16 +75,12 @@ namespace QHY
             BAYER_RG
         };
 
-        /// <summary>
-        /// This function need to be call when first using QHYCCD SDK. If the SDK is already initialized. You can still call this and it will re-initialize the resource. Looks like a new start.
-        /// </summary>
+        /// <summary>This function need to be call when first using QHYCCD SDK. If the SDK is already initialized. You can still call this and it will re-initialize the resource. Looks like a new start.</summary>
         /// <returns>This function will return the the QHYCCD_ERROR code. 0=success</returns>
         [DllImport("qhyccd.dll", EntryPoint = "InitQHYCCDResource", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 InitQHYCCDResource();
 
-        /// <summary>
-        /// This function will scan all QHYCCD cameras connecting with the computer. The return value is the number of cameras.
-        /// </summary>
+        /// <summary>This function will scan all QHYCCD cameras connecting with the computer. The return value is the number of cameras.</summary>
         /// <returns>If one camera connected with the computer. the return value is 1.  If two cameras connected, it return 2 , and so on.</returns>
         [DllImport("qhyccd.dll", EntryPoint = "ReleaseQHYCCDResource", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 ReleaseQHYCCDResource();
