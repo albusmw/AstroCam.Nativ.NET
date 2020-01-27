@@ -4,44 +4,73 @@ using System.Text;
 
 namespace ZWO
 {
+    /// <summary>All function to control the ZWO ASI camera.</summary>
+    /// <remarks>Infos taken from "ASICamera2 Software Development Kit.pdf" and "ASICamera2.h".</remarks>
     public class ASICameraDll
     {
+        /// <summary>Accessible control types.</summary>
         public enum ASI_CONTROL_TYPE
         {
+
+            /// <summary>Gain.</summary> 
             ASI_GAIN = 0,
-            ASI_EXPOSURE,               // time [us]
+            /// <summary>Exposure time [us].</summary> 
+            ASI_EXPOSURE,
+            /// <summary>Gamma with range 1 to 100 (nominally 50).</summary> 
             ASI_GAMMA,
+            /// <summary>Red component of white balance.</summary> 
             ASI_WB_R,
+            /// <summary>Blue component of white balance.</summary> 
             ASI_WB_B,
+            /// <summary>Pixel value offset (a bias, not a scale factor).</summary> 
             ASI_BRIGHTNESS,
+            /// <summary>The total data transfer rate percentage.</summary> 
             ASI_BANDWIDTHOVERLOAD,
+            /// <summary>Over clock.</summary> 
             ASI_OVERCLOCK,
-            ASI_TEMPERATURE,            // return 10*temperature
+            /// <summary>Sensor temperature 10 times the actual temperature.</summary> 
+            ASI_TEMPERATURE,
+            /// <summary>Image flip.</summary> 
             ASI_FLIP,
+            /// <summary>Maximum gain when auto adjust.</summary> 
             ASI_AUTO_MAX_GAIN,
+            /// <summary>Maximum exposure time when auto adjust [us].</summary> 
             ASI_AUTO_MAX_EXP,
+            /// <summary>Target brightness when auto adjust.</summary> 
             ASI_AUTO_MAX_BRIGHTNESS,
+            /// <summary>Hardware binning of pixels.</summary> 
             ASI_HARDWARE_BIN,
+            /// <summary>High speed mode</summary> 
             ASI_HIGH_SPEED_MODE,
+            /// <summary>Coolerpower percent (only cool camera)</summary> 
             ASI_COOLER_POWER_PERC,
-            ASI_TARGET_TEMP,            // not need *10
+            /// <summary>Sensor's target temperature (only cool camera) - don't multiply by 10.</summary> 
+            ASI_TARGET_TEMP,
+            /// <summary>Open cooler (only cool</summary> 
             ASI_COOLER_ON,
+            /// <summary>Lead to a smaller grid at software bin mode for color camera.</summary> 
             ASI_MONO_BIN,
+            /// <summary>Only cooled camera has fan.</summary> 
             ASI_FAN_ON,
+            /// <summary>Currently only supported by 1600 mono camera.</summary> 
             ASI_PATTERN_ADJUST,
             ASI_ANTI_DEW_HEATER,
             ASI_HUMIDITY,
             ASI_ENABLE_DDR
         }
 
-
+        /// <summary>Supported image types.</summary> 
         public enum ASI_IMG_TYPE
         {
-            //Supported image type
+            /// <summary>Each pixel is an 8 bit (1 byte) gray level.</summary> 
             ASI_IMG_RAW8 = 0,
+            /// <summary>Each pixel consists of RGB, 3 bytes totally (color cameras only).</summary> 
             ASI_IMG_RGB24,
+            /// <summary>2 byte s for every pixel with 65536 gray levels.</summary> 
             ASI_IMG_RAW16,
+            /// <summary>Mono chrome mode 1 byte every pixel (color camer as only).</summary> 
             ASI_IMG_Y8,
+            /// <summary>End-of-enum.</summary> 
             ASI_IMG_END = -1
         }
 
@@ -62,76 +91,122 @@ namespace ZWO
             ASI_BAYER_GB
         };
 
+        /// <summary>Status of the exposure sequence.</summary> 
         public enum ASI_EXPOSURE_STATUS
         {
-            ASI_EXP_IDLE = 0,//: idle states, you can start exposure now
-            ASI_EXP_WORKING,//: exposing
-            ASI_EXP_SUCCESS,// exposure finished and waiting for download
-            ASI_EXP_FAILED,//:exposure failed, you need to start exposure again
+            /// <summary>Idle states, you can start exposure now.</summary> 
+            ASI_EXP_IDLE = 0,
+            /// <summary>Exposing.</summary> 
+            ASI_EXP_WORKING,
+            /// <summary>Exposure finished and waiting for download.</summary> 
+            ASI_EXP_SUCCESS,
+            /// <summary>Exposure failed, you need to start exposure again.</summary> 
+            ASI_EXP_FAILED,
         };
 
+        /// <summary>Error codes.</summary> 
         public enum ASI_ERROR_CODE
-        { //ASI ERROR CODE
+        {
+            /// <summary>.</summary> 
             ASI_SUCCESS = 0,
-            ASI_ERROR_INVALID_INDEX, //no camera connected or index value out of boundary
-            ASI_ERROR_INVALID_ID, //invalid ID
-            ASI_ERROR_INVALID_CONTROL_TYPE, //invalid control type
-            ASI_ERROR_CAMERA_CLOSED, //camera didn't open
-            ASI_ERROR_CAMERA_REMOVED, //failed to find the camera, maybe the camera has been removed
-            ASI_ERROR_INVALID_PATH, //cannot find the path of the file
+            /// <summary>No camera connected or index value out of boundary.</summary> 
+            ASI_ERROR_INVALID_INDEX,
+            /// <summary>Invalid ID.</summary> 
+            ASI_ERROR_INVALID_ID,
+            /// <summary>Invalid control type.</summary> 
+            ASI_ERROR_INVALID_CONTROL_TYPE,
+            /// <summary>Camera didn't open.</summary> 
+            ASI_ERROR_CAMERA_CLOSED,
+            /// <summary>Failed to find the camera, maybe the camera has been removed.</summary> 
+            ASI_ERROR_CAMERA_REMOVED,
+            /// <summary>Cannot find the path of the file.</summary> 
+            ASI_ERROR_INVALID_PATH,
             ASI_ERROR_INVALID_FILEFORMAT,
-            ASI_ERROR_INVALID_SIZE, //wrong video format size
-            ASI_ERROR_INVALID_IMGTYPE, //unsupported image formate
-            ASI_ERROR_OUTOF_BOUNDARY, //the startpos is out of boundary
-            ASI_ERROR_TIMEOUT, //timeout
-            ASI_ERROR_INVALID_SEQUENCE,//stop capture first
-            ASI_ERROR_BUFFER_TOO_SMALL, //buffer size is not big enough
+            /// <summary>Wrong video format size.</summary> 
+            ASI_ERROR_INVALID_SIZE,
+            /// <summary>Unsupported image formate.</summary> 
+            ASI_ERROR_INVALID_IMGTYPE,
+            /// <summary>The startpos is out of boundary.</summary> 
+            ASI_ERROR_OUTOF_BOUNDARY,
+            /// <summary>Timeout.</summary> 
+            ASI_ERROR_TIMEOUT,
+            /// <summary>Stop capture first.</summary> 
+            ASI_ERROR_INVALID_SEQUENCE,
+            /// <summary>Buffer size is not big enough.</summary> 
+            ASI_ERROR_BUFFER_TOO_SMALL, 
             ASI_ERROR_VIDEO_MODE_ACTIVE,
             ASI_ERROR_EXPOSURE_IN_PROGRESS,
-            ASI_ERROR_GENERAL_ERROR,//general error, eg: value is out of valid range
+            /// <summary>General error, eg: value is out of valid range.</summary> 
+            ASI_ERROR_GENERAL_ERROR,
             ASI_ERROR_END
         };
+
+        /// <summary>Boolean type</summary> 
         public enum ASI_BOOL
         {
+            /// <summary>FALSE.</summary> 
             ASI_FALSE = 0,
+            /// <summary>TRUE</summary> 
             ASI_TRUE
         };
+
+        /// <summary>Image flip.</summary> 
         public enum ASI_FLIP_STATUS
         {
-            ASI_FLIP_NONE = 0,//: original
-            ASI_FLIP_HORIZ,//: horizontal flip
-            ASI_FLIP_VERT,// vertical flip
-            ASI_FLIP_BOTH,//:both horizontal and vertical flip
-
+            /// <summary>Original.</summary> 
+            ASI_FLIP_NONE = 0,
+            /// <summary>Horizontal flip.</summary> 
+            ASI_FLIP_HORIZ,
+            /// <summary>Vertical flip.</summary> 
+            ASI_FLIP_VERT,
+            /// <summary>Both horizontal and vertical flip.</summary> 
+            ASI_FLIP_BOTH
         };
+
+        /// <summary>Information about the selected camera.</summary> 
         public struct ASI_CAMERA_INFO
         {
+            /// <summary>The name of the camera, you can display this to the UI - char[64].</summary> 
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 64)]
-            public byte[] Name;// char[64]; //the name of the camera, you can display this to the UI
-            public int CameraID; //this is used to control everything of the camera in other functions
-            public int MaxHeight; //the max height of the camera
-            public int MaxWidth;	//the max width of the camera
-
+            public byte[] Name;
+            /// <summary>This is used to control everything of the camera in other functions.</summary> 
+            public int CameraID;
+            /// <summary>The max pixel height of the camera.</summary> 
+            public int MaxHeight;
+            /// <summary>The max pixel width of the camera.</summary> 
+            public int MaxWidth;
+            /// <summary>Is the camera a color camera?</summary> 
             public ASI_BOOL IsColorCam;
+            /// <summary>Bayer pattern of the camera.</summary> 
             public ASI_BAYER_PATTERN BayerPattern;
-
+            /// <summary>1 means bin1 which is supported by every camera, 2 means bin 2 etc.. 0 is the end of supported binning method - int[16].</summary> 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-            public int[] SupportedBins;// int[16]; //1 means bin1 which is supported by every camera, 2 means bin 2 etc.. 0 is the end of supported binning method
-
+            public int[] SupportedBins;
+            /// <summary>This array will content with the support output format type.IMG_END is the end of supported video format - ASI_IMG_TYPE[8].</summary> 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-            public ASI_IMG_TYPE[] SupportedVideoFormat;// ASI_IMG_TYPE[8]; //this array will content with the support output format type.IMG_END is the end of supported video format
-
-            public double PixelSize; //the pixel size of the camera, unit is um. such like 5.6um
+            public ASI_IMG_TYPE[] SupportedVideoFormat;
+            /// <summary>The pixel size of the camera, unit is um. such like 5.6um.</summary> 
+            public double PixelSize;
+            /// <summary>Does the camera hava a mechanical shutter?</summary> 
             public ASI_BOOL MechanicalShutter;
+            /// <summary>Does the camera has a ST4 port?</summary> 
             public ASI_BOOL ST4Port;
+            /// <summary>Is the camera a cooled camera?</summary> 
             public ASI_BOOL IsCoolerCam;
+            /// <summary>Does the camera provide a USB3 host?</summary> 
             public ASI_BOOL IsUSB3Host;
+            /// <summary>Is the camera a USB3 camera?</summary> 
             public ASI_BOOL IsUSB3Camera;
+            /// <summary>Electrons per ADU.</summary> 
             public float ElecPerADU;
-
-            [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 24)]
-            public byte[] Unused;//[20];
-
+            /// <summary>The actual ADC depth of image sensor.</summary> 
+            public int BitDepth;
+            /// <summary>Is the camera a trigger camera?</summary> 
+            public ASI_BOOL IsTriggerCam;
+            /// <summary>.</summary> 
+            [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 16)]
+            public byte[] Unused;//[16];
+            /// <summary>Return the Name field as a string.</summary> 
             public string NameAsString
             {
                 get { return Encoding.ASCII.GetString(Name).TrimEnd((Char)0); }
@@ -141,16 +216,21 @@ namespace ZWO
         [StructLayout(LayoutKind.Sequential)]
         public struct ASI_CONTROL_CAPS
         {
+            /// <summary>The name of the Control like Exposure, Gain etc.</summary> 
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 64)]
-            public byte[] Name; //the name of the Control like Exposure, Gain etc..
+            public byte[] Name;
+            /// <summary>Description of this control.</summary> 
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 128)]
-            public byte[] Description; //description of this control
+            public byte[] Description;
             public int MaxValue;
             public int MinValue;
             public int DefaultValue;
-            public ASI_BOOL IsAutoSupported; //support auto set 1, don't support 0
-            public ASI_BOOL IsWritable; //some control like temperature can only be read by some cameras 
-            public ASI_CONTROL_TYPE ControlType;//this is used to get value and set value of the control
+            /// <summary>Support auto set 1, don't support 0.</summary> 
+            public ASI_BOOL IsAutoSupported;
+            /// <summary>Some control like temperature can only be read by some cameras.</summary> 
+            public ASI_BOOL IsWritable;
+            /// <summary>This is used to get value and set value of the control.</summary> 
+            public ASI_CONTROL_TYPE ControlType;
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 32)]
             public byte[] Unused;//[32];
 
@@ -202,8 +282,6 @@ namespace ZWO
         [DllImport("ASICamera2_x64.dll", EntryPoint = "ASIInitCamera", CallingConvention = CallingConvention.Cdecl)]
         private static extern ASI_ERROR_CODE ASIInitCamera64(int iCameraID);
 
-
-
         [DllImport("ASICamera2.dll", EntryPoint = "ASICloseCamera", CallingConvention = CallingConvention.Cdecl)]
         private static extern ASI_ERROR_CODE ASICloseCamera32(int iCameraID);
 
@@ -224,7 +302,7 @@ namespace ZWO
         [DllImport("ASICamera2_x64.dll", EntryPoint = "ASIGetControlCaps", CallingConvention = CallingConvention.Cdecl)]
         private static extern ASI_ERROR_CODE ASIGetControlCaps64(int iCameraID, int iControlIndex, out ASI_CONTROL_CAPS pControlCaps);
 
-
+        
         [DllImport("ASICamera2.dll", EntryPoint = "ASISetControlValue", CallingConvention = CallingConvention.Cdecl)]
         private static extern ASI_ERROR_CODE ASISetControlValue32(int iCameraID, ASI_CONTROL_TYPE ControlType, int lValue, ASI_BOOL bAuto);
 
