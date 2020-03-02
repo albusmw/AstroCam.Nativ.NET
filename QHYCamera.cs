@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QHY
 {
-    /// <summary>DLL functions for the QHY cameras.</summary>
+    ///<summary>DLL functions for the QHY cameras.</summary>
     public class QHYCamera
     {
 
@@ -17,11 +17,15 @@ namespace QHY
         const CharSet DLLCharSet = CharSet.Ansi;
         const CallingConvention DLLCallCon = CallingConvention.StdCall;
 
+        ///<summary>Error codes.</summary>
         public enum QHYCCD_ERROR
         {
+            ///<summary>No error.</summary>
             QHYCCD_SUCCESS = 0,
+            ///<summary>Error (no further information).</summary>
             QHYCCD_ERROR = -1,
-            QHYCCD_ERROR_NO_DEVICE    =     -2,
+            ///<summary>No device present.</summary>
+            QHYCCD_ERROR_NO_DEVICE =     -2,
             
         }
 
