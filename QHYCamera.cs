@@ -167,9 +167,17 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "CloseQHYCCD",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 CloseQHYCCD(IntPtr handle);
 
+        /// <summary>Set camera's bin mode for ouput image data.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="wbin">Width bin mode.</param>
+        /// <param name="hbin">Height bin mode.</param>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDBinMode", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SetQHYCCDBinMode(IntPtr handle, UInt32 wbin, UInt32 hbin);
 
+        /// <summary>Set params to camera.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="controlid">Function type.</param>
+        /// <param name="value">Value to camera.</param>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDParam", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SetQHYCCDParam(IntPtr handle, CONTROL_ID controlid, double value);
 
