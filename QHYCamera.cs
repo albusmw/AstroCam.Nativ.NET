@@ -213,16 +213,8 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "GetQHYCCDSingleFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, IntPtr pBuffer);
 
-        //public unsafe static UInt32 C_GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, byte[] rawArray)
-
-        //{
-
-        //    UInt32 ret;
-        //    fixed (byte* prawArray = rawArray)
-        //    ret = GetQHYCCDSingleFrame(handle, ref w, ref h, ref bpp, ref channels, prawArray);
-        //    return ret;
-
-        //}
+        [DllImport(DLLName, EntryPoint = "GetQHYCCDLiveFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
+        public unsafe static extern UInt32 GetQHYCCDLiveFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, IntPtr pBuffer);
 
 
         /// <summary>This function will output the basic information of the camera.  Includes the physical pixel size, the basic pixel array size. and the current image depth.</summary>
@@ -343,6 +335,12 @@ namespace QHY
         /// <param name="modeNumber">Read-out modes selected.</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDReadMode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 GetQHYCCDReadMode(IntPtr handle, ref UInt32 modeNumber);
+
+        [DllImport(DLLName, EntryPoint = "BeginQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        public unsafe static extern UInt32 BeginQHYCCDLive(IntPtr handle);
+
+        [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        public unsafe static extern UInt32 StopQHYCCDLive(IntPtr handle);
 
         // =====================================================================================================================================
         // Derived functions
