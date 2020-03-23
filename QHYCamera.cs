@@ -273,7 +273,7 @@ namespace QHY
         public unsafe static extern UInt32 ControlQHYCCDTemp(IntPtr handle, double targettemp);
 
         [DllImport(DLLName, EntryPoint = "SendOrder2QHYCCDCFW", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern UInt32 SendOrder2QHYCCDCFW(IntPtr handle, String order, int length);
+        public unsafe static extern UInt32 SendOrder2QHYCCDCFW(IntPtr handle, IntPtr order, int length);
 
         /// <summary>Used to check if camera has some function by macro.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
@@ -299,7 +299,7 @@ namespace QHY
         //EXPORTFUNC uint32_t STDCALL GetQHYCCDCFWStatus(qhyccd_handle *handle,char *status)
 
         [DllImport(DLLName, EntryPoint = "GetQHYCCDCFWStatus", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern UInt32 GetQHYCCDCFWStatus(IntPtr handle, StringBuilder cfwStatus);
+        public unsafe static extern UInt32 GetQHYCCDCFWStatus(IntPtr handle, IntPtr cfwStatus);
 
         [DllImport(DLLName, EntryPoint = "GetQHYCCDSDKVersion",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDSDKVersion(ref UInt32 year, ref UInt32 month, ref UInt32 day, ref UInt32 subday);
@@ -341,6 +341,9 @@ namespace QHY
 
         [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 StopQHYCCDLive(IntPtr handle);
+
+        [DllImport(DLLName, EntryPoint = "IsQHYCCDCFWPlugged", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        public unsafe static extern UInt32 IsQHYCCDCFWPlugged(IntPtr handle);
 
         // =====================================================================================================================================
         // Derived functions
