@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QHY
 {
-    /// <summary>DLL functions for the QHY cameras.</summary>
+    ///<summary>DLL functions for the QHY cameras.</summary>
     public class QHYCamera
     {
 
@@ -17,11 +17,15 @@ namespace QHY
         const CharSet DLLCharSet = CharSet.Ansi;
         const CallingConvention DLLCallCon = CallingConvention.StdCall;
 
+        ///<summary>Error codes.</summary>
         public enum QHYCCD_ERROR
         {
+            ///<summary>No error.</summary>
             QHYCCD_SUCCESS = 0,
+            ///<summary>Error (no further information).</summary>
             QHYCCD_ERROR = -1,
-            QHYCCD_ERROR_NO_DEVICE    =     -2,
+            ///<summary>No device present.</summary>
+            QHYCCD_ERROR_NO_DEVICE =     -2,
             
         }
 
@@ -163,9 +167,17 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "CloseQHYCCD",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 CloseQHYCCD(IntPtr handle);
 
+        /// <summary>Set camera's bin mode for ouput image data.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="wbin">Width bin mode.</param>
+        /// <param name="hbin">Height bin mode.</param>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDBinMode", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SetQHYCCDBinMode(IntPtr handle, UInt32 wbin, UInt32 hbin);
 
+        /// <summary>Set params to camera.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="controlid">Function type.</param>
+        /// <param name="value">Value to camera.</param>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDParam", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SetQHYCCDParam(IntPtr handle, CONTROL_ID controlid, double value);
 
@@ -201,16 +213,8 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "GetQHYCCDSingleFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, IntPtr pBuffer);
 
-        //public unsafe static UInt32 C_GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, byte[] rawArray)
-
-        //{
-
-        //    UInt32 ret;
-        //    fixed (byte* prawArray = rawArray)
-        //    ret = GetQHYCCDSingleFrame(handle, ref w, ref h, ref bpp, ref channels, prawArray);
-        //    return ret;
-
-        //}
+        [DllImport(DLLName, EntryPoint = "GetQHYCCDLiveFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
+        public unsafe static extern UInt32 GetQHYCCDLiveFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, IntPtr pBuffer);
 
 
         /// <summary>This function will output the basic information of the camera.  Includes the physical pixel size, the basic pixel array size. and the current image depth.</summary>
@@ -331,6 +335,12 @@ namespace QHY
         /// <param name="modeNumber">Read-out modes selected.</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDReadMode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 GetQHYCCDReadMode(IntPtr handle, ref UInt32 modeNumber);
+
+        [DllImport(DLLName, EntryPoint = "BeginQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        public unsafe static extern UInt32 BeginQHYCCDLive(IntPtr handle);
+
+        [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        public unsafe static extern UInt32 StopQHYCCDLive(IntPtr handle);
 
         // =====================================================================================================================================
         // Derived functions
