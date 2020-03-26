@@ -298,6 +298,9 @@ namespace QHY
 
         //EXPORTFUNC uint32_t STDCALL GetQHYCCDCFWStatus(qhyccd_handle *handle,char *status)
 
+        /// <summary>Get the current position of the filter wheel.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="cfwStatus">ASCII value which represents the position, '0' means position 1, '1' position 2, ... until 'B' for position 12</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDCFWStatus", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDCFWStatus(IntPtr handle, IntPtr cfwStatus);
 
@@ -342,6 +345,7 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 StopQHYCCDLive(IntPtr handle);
 
+        /// <summary>Check if a filter wheel is connected - does NOT work on QHY600.</summary>
         [DllImport(DLLName, EntryPoint = "IsQHYCCDCFWPlugged", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 IsQHYCCDCFWPlugged(IntPtr handle);
 
