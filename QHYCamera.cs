@@ -219,8 +219,8 @@ namespace QHY
 
         /// <summary>This function will output the basic information of the camera.  Includes the physical pixel size, the basic pixel array size. and the current image depth.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
-        /// <param name="chipw"></param>
-        /// <param name="chiph"></param>
+        /// <param name="chipw">Chip width [mm].</param>
+        /// <param name="chiph">Chip height [mm].</param>
         /// <param name="imagew">The image array width and height is the maxium image width and height. Even in small ROI or in overscan area removed mode. this size will not change.</param>
         /// <param name="imageh">The image array width and height is the maxium image width and height. Even in small ROI or in overscan area removed mode. this size will not change.</param>
         /// <param name="pixelw">Please note the pixel width and pixel height is in physical. So even with BIN22, the pixel size is still the physical pixel size, it will not change with the binning setting.</param>
