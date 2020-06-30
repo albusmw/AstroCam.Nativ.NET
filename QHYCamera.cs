@@ -5,6 +5,7 @@ using System.Text;
 // Taken from   https://www.qhyccd.com/index.php?m=content&c=index&a=show&catid=127&id=169
 //              https://note.youdao.com/share/?token=9991AC90E811437290EB9AD0D2B15912&gid=7195236
 //              https://www.qhyccd.com/index.php?m=content&c=index&a=show&catid=94&id=55&cut=1
+//              https://www.qhyccd.com/bbs/index.php
 //              C:\Users\albusmw\Dropbox\Astro\Literatur\QHY SDK Doku.pdf
 
 namespace QHY
@@ -151,9 +152,14 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "ScanQHYCCD",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 ScanQHYCCD();
 
+        /// <summary>Gets the camera ID, which is stored in a character array and if run successfully, it will return QHYCCD_SUCCESS.The ID of each camera consists of the camera model and serial number.For example, qhy183c-c915484fa76ea7552, QHY183C in the front is the camera model, and c915484fa76ea7552 in the back is the serial number of the camera. Each camera has its own serial number, which is different even for different cameras of the same model. Its role is to distinguish between cameras, which are necessary when testing multiple cameras.</summary>
+        /// <param name="index">This is the index of the array of camera structure,and must be lower than the equal of ScanQHYCCD(); return value</param>
+        /// <param name="id">A pointer variate which is char type,it is used to receive camera ID that returned by function.</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDId",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDId(int index, StringBuilder id);
 
+        /// <summary>The camera will be turned on according to the ID returned by GetQHYCCDId, and if the function execute successfully, the function will return camera handle.If the handle is not empty, that mean the function executes successfully.Then all operate functions need this handle as parameter.</summary>
+        /// <param name="id">The camera ID returned by GetQHYCCDId()</param>
         [DllImport(DLLName, EntryPoint = "OpenQHYCCD",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern IntPtr OpenQHYCCD(StringBuilder id);
 
@@ -193,9 +199,15 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "ExpQHYCCDSingleFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 ExpQHYCCDSingleFrame(IntPtr handle);
 
+        /// <summary>Stop the camera exposure. For the new camera, the two functions of stop exposure are the same. Stop exposure and stop data reading. But for the old camera, this function only stops exposure time, and the image data still needs to be read.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <returns>If the function executes successfully, QHYCCD_SUCCESS is returned.</returns>
         [DllImport(DLLName, EntryPoint = "CancelQHYCCDExposing", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 CancelQHYCCDExposing(IntPtr handle);
 
+        /// <summary>Stopping camera exposing and stop camera read out. When stopping, you need make sure that the software is synchronized with the camera, the camera does not output data and the software does not receive data, or the camera outputs the data and the software receives the data, otherwise the software or the cameras will die.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <returns>If the function executes successfully, QHYCCD_SUCCESS is returned.</returns>
         [DllImport(DLLName, EntryPoint = "CancelQHYCCDExposingAndReadout", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 CancelQHYCCDExposingAndReadout(IntPtr handle);
 
@@ -286,6 +298,11 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "ControlQHYCCDShutter", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 ControlQHYCCDShutter(IntPtr handle, byte targettemp);
 
+        ///<summary>Set the resolution and ROI of the camera, and set the resolution with SetQHYCCDBinMode(). When used together, the starting position of horizontal and vertical directions should be set to 0, which should be used separately when setting ROI, and the reference point should be the upper left corner of the image. Successful return of QHYCCD_SUCCESS.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="sizex">The width of image</param>
+        /// <param name="sizey">The height of image</param>
+        /// <returns>Successful return of QHYCCD_SUCCESS</returns>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDResolution", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SetQHYCCDResolution(IntPtr handle, UInt32 startx, UInt32 starty, UInt32 sizex, UInt32 sizey);
 
@@ -304,6 +321,12 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "GetQHYCCDCFWStatus", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDCFWStatus(IntPtr handle, IntPtr cfwStatus);
 
+        /// <summary>Get the version number of the SDK, which is the version of qhyccd.dll, and the subday is used to distinguish multiple versions in the same day.You can judge whether the currently used SDK is the latest version based on the SDK version obtained.</summary>
+        /// <param name="year">Used to receive the year of SDK version.</param>
+        /// <param name="month">Used to receive the month of SDK version.</param>
+        /// <param name="day">Used to receive the day of SDK version.</param>
+        /// <param name="subday">Used to receive the subday of SDK version.</param>
+        /// <returns>If the function executes successfully, QHYCCD_SUCCESS is returned.</returns>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDSDKVersion",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDSDKVersion(ref UInt32 year, ref UInt32 month, ref UInt32 day, ref UInt32 subday);
 
@@ -342,6 +365,9 @@ namespace QHY
         [DllImport(DLLName, EntryPoint = "BeginQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 BeginQHYCCDLive(IntPtr handle);
 
+        /// <summary>Stopping camera live frame mode. If the function executes successfully,it will return QHYCCD_SUCCESS.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <returns>If the function executes successfully,it will return QHYCCD_SUCCESS.</returns>
         [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 StopQHYCCDLive(IntPtr handle);
 
