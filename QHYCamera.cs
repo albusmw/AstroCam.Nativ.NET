@@ -7,6 +7,7 @@ using System.Text;
 //              https://www.qhyccd.com/index.php?m=content&c=index&a=show&catid=94&id=55&cut=1
 //              https://www.qhyccd.com/bbs/index.php
 //              C:\Users\albusmw\Dropbox\Astro\Literatur\QHY SDK Doku.pdf
+// SDK Website: https://www.qhyccd.com/html/prepub/log_en.html#!log_en.md
 
 namespace QHY
 {
