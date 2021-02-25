@@ -9,15 +9,11 @@ using System.Text;
 //              C:\Users\albusmw\Dropbox\Astro\Literatur\QHY SDK Doku.pdf
 // SDK Website: https://www.qhyccd.com/html/prepub/log_en.html#!log_en.md
 
-namespace QHY
+namespace QHYCamera
 {
     ///<summary>DLL functions for the QHY cameras.</summary>
-    public class QHYCamera
+    public class QHY
     {
-
-        const string DLLName = "qhyccd.dll";
-        const CharSet DLLCharSet = CharSet.Ansi;
-        const CallingConvention DLLCallCon = CallingConvention.StdCall;
 
         ///<summary>Error codes.</summary>
         public enum QHYCCD_ERROR
@@ -27,8 +23,8 @@ namespace QHY
             ///<summary>Error (no further information).</summary>
             QHYCCD_ERROR = -1,
             ///<summary>No device present.</summary>
-            QHYCCD_ERROR_NO_DEVICE =     -2,
-            
+            QHYCCD_ERROR_NO_DEVICE = -2,
+
         }
 
         /// <summary>Available control ID's.</summary>
@@ -138,6 +134,16 @@ namespace QHY
             BAYER_RG
         };
 
+    };
+
+    public class QHYDLL
+
+    {
+
+        const string DLLName = "qhyccd.dll";
+        const CharSet DLLCharSet = CharSet.Ansi;
+        const CallingConvention DLLCallCon = CallingConvention.StdCall;
+
         /// <summary>This function need to be call when first using QHYCCD SDK. If the SDK is already initialized. You can still call this and it will re-initialize the resource. Looks like a new start.</summary>
         /// <returns>This function will return the QHYCCD_ERROR code (0=success).</returns>
         [DllImport(DLLName, EntryPoint = "InitQHYCCDResource", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
@@ -187,7 +193,7 @@ namespace QHY
         /// <param name="controlid">Function type.</param>
         /// <param name="value">Value to camera.</param>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDParam", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern UInt32 SetQHYCCDParam(IntPtr handle, CONTROL_ID controlid, double value);
+        public unsafe static extern UInt32 SetQHYCCDParam(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid, double value);
 
         /// <summary>The length of memory required to reach a frame image can be obtained, and the space for image data can be opened up according to the return value.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
@@ -277,7 +283,7 @@ namespace QHY
 
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDParam", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern double GetQHYCCDParam(IntPtr handle, CONTROL_ID controlid);
+        public unsafe static extern double GetQHYCCDParam(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid);
 
         /// <summary>Used to get camera parameter's maximum,minimum and step,you can know about camera parameter's range and step(for example gain offset),the parameter object obtained is determined by the CONTROL_ID.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
@@ -287,7 +293,7 @@ namespace QHY
         /// <param name="step">The parameter's step.</param>
         /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDParamMinMaxStep", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern QHYCCD_ERROR GetQHYCCDParamMinMaxStep(IntPtr handle, CONTROL_ID controlid, ref double min, ref double max, ref double step);
+        public unsafe static extern QHYCamera.QHY.QHYCCD_ERROR GetQHYCCDParamMinMaxStep(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid, ref double min, ref double max, ref double step);
 
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         [DllImport(DLLName, EntryPoint = "ControlQHYCCDGuide", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
@@ -307,7 +313,7 @@ namespace QHY
         /// <returns>If the camera has some function, it will return QHYCCD_SUCCESS, if not, it will return QHYCCD_ERROR.</returns>
         /// <remarks>When you use the function to check if camera is color camera(CAM_COLOR) the function will return camera's bayer order if it executes successfully, if not, it will return QHYCCD_ERROR.</remarks>
         [DllImport(DLLName, EntryPoint = "IsQHYCCDControlAvailable", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern QHYCCD_ERROR IsQHYCCDControlAvailable(IntPtr handle, CONTROL_ID controlid);
+        public unsafe static extern QHYCamera.QHY.QHYCCD_ERROR IsQHYCCDControlAvailable(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid);
 
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         [DllImport(DLLName, EntryPoint = "ControlQHYCCDShutter", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
