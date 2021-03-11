@@ -126,16 +126,22 @@ namespace QHYCamera
         };
 
         /// <summary>Bayer pattern orientation.</summary>
+        /// <see cref="https://www.astrofactors.com/on-the-internet/qhy-camera-debayer-pattern.html"/>
         public enum BAYER_ID
         {
+            /// <summary>GBRG</summary>
             BAYER_GB = 1,
+            /// <summary>GRBG</summary>
             BAYER_GR,
+            /// <summary>BGGR</summary>
             BAYER_BG,
+            /// <summary>RGGB</summary>
             BAYER_RG
         };
 
     };
 
+    /// <summary>Functions provided by the QHY DLL.</summary>
     public class QHYDLL
 
     {
@@ -278,10 +284,14 @@ namespace QHYCamera
         public unsafe static extern UInt32 GetQHYCCDEffectiveArea(IntPtr handle, ref UInt32 startx, ref UInt32 starty, ref UInt32 sizex, ref UInt32 sizey);
 
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="verBuf">Used to store the information about firmware version.</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDFWVersion", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern UInt32 GetQHYCCDFWVersion(IntPtr handle, byte* verBuf);
+        public unsafe static extern UInt32 GetQHYCCDFWVersion(IntPtr handle, IntPtr verBuf);
 
+        /// <summary>This function can get camera information according to CONTROL_ID, for example, expose time, gain, offset.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="controlid">The corresponding control ID.</param>
+        /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDParam", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern double GetQHYCCDParam(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid);
 
@@ -300,10 +310,16 @@ namespace QHYCamera
         public unsafe static extern UInt32 ControlQHYCCDGuide(IntPtr handle, byte Direction, UInt16 PulseTime);
 
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="targettemp">CCD target temperature.</param>
+        /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "ControlQHYCCDTemp", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 ControlQHYCCDTemp(IntPtr handle, double targettemp);
 
+        /// <summary>Used to control filter wheel.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="order">The target position of filter wheel.</param>
+        /// <param name="length">The length of "order".</param>
+        /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "SendOrder2QHYCCDCFW", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SendOrder2QHYCCDCFW(IntPtr handle, IntPtr order, int length);
 
@@ -401,11 +417,12 @@ namespace QHYCamera
         // Derived functions
 
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
-        public unsafe static UInt32 C_GetQHYCCDFWVersion(IntPtr handle, byte[] verBuf)
-        {
-            fixed (byte* pverBuf = verBuf)
-                return GetQHYCCDFWVersion(handle, pverBuf);
-        }
+        /// <param name="verBuf">Used to store the information about firmware version.</param>
+        //public unsafe static UInt32 C_GetQHYCCDFWVersion(IntPtr handle, byte[] verBuf)
+        //{
+        //    fixed (byte* pverBuf = verBuf)
+        //        return GetQHYCCDFWVersion(handle, pverBuf);
+        //}
 
     }
 }
