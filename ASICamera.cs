@@ -74,20 +74,29 @@ namespace ZWO
             ASI_IMG_END = -1
         }
 
-
+        /// <summary>Guider Direction</summary>
         public enum ASI_GUIDE_DIRECTION
         {
+            /// <summary>North</summary>
             ASI_GUIDE_NORTH = 0,
+            /// <summary>South</summary>
             ASI_GUIDE_SOUTH,
+            /// <summary>East</summary>
             ASI_GUIDE_EAST,
+            /// <summary>West</summary>
             ASI_GUIDE_WEST
         }
 
+        /// <summary>Bayer pattern orientation.</summary>
         public enum ASI_BAYER_PATTERN
         {
+            /// <summary>RGGB</summary>
             ASI_BAYER_RG = 0,
+            /// <summary>BGGR</summary>
             ASI_BAYER_BG,
+            /// <summary>GRBG</summary>
             ASI_BAYER_GR,
+            /// <summary>GBRG</summary>
             ASI_BAYER_GB
         };
 
