@@ -70,6 +70,7 @@ namespace QHYCamera
             CONTROL_COOLER,
             /// <summary>check if camera has st4port</summary>
             CONTROL_ST4PORT,
+            /// <summary>???</summary>
             CAM_COLOR,
             /// <summary>check if camera has bin1x1 mode</summary>
             CAM_BIN1X1MODE,
@@ -105,23 +106,35 @@ namespace QHYCamera
             CAM_GPS,
             /// <summary>Ignore overscan area</summary>
             CAM_IGNOREOVERSCAN_INTERFACE,
+            /// <summary>???</summary>
             QHYCCD_3A_AUTOBALANCE,
+            /// <summary>???</summary>
             QHYCCD_3A_AUTOEXPOSURE,
+            /// <summary>???</summary>
             QHYCCD_3A_AUTOFOCUS,
             /// <summary>ccd or cmos ampv</summary>
             CONTROL_AMPV,
             /// <summary>Virtual Camera on off</summary>
             CONTROL_VCAM,
+            /// <summary>???</summary>
             CAM_VIEW_MODE,
             /// <summary>Check CFW slots number</summary>
             CONTROL_CFWSLOTSNUM,
+            /// <summary>???</summary>
             IS_EXPOSING_DONE,
+            /// <summary>???</summary>
             ScreenStretchB,
+            /// <summary>???</summary>
             ScreenStretchW,
+            /// <summary>???</summary>
             CONTROL_DDR,
+            /// <summary>???</summary>
             CAM_LIGHT_PERFORMANCE_MODE,
+            /// <summary>???</summary>
             CAM_QHY5II_GUIDE_MODE,
+            /// <summary>???</summary>
             DDR_BUFFER_CAPACITY,
+            /// <summary>???</summary>
             DDR_BUFFER_READ_THRESHOLD
         };
 
@@ -225,19 +238,27 @@ namespace QHYCamera
         [DllImport(DLLName, EntryPoint = "CancelQHYCCDExposingAndReadout", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 CancelQHYCCDExposingAndReadout(IntPtr handle);
 
+        /// <summary>Used to get a frame image data and store data in "ImgData" variate.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="ImageWidth">The width of image.</param>
+        /// <param name="ImageHeight">The height of image.</param>
+        /// <param name="bpp">The bit depth of image.</param>
+        /// <param name="channels">The channel of image.</param>
+        /// <param name="rawArray">Used to receive image data.</param>
+        /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDSingleFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 ImageWidth, ref UInt32 ImageHeight, ref UInt32 bpp, ref UInt32 channels, byte* rawArray);
 
         /// <summary>Used to get a frame image data and store data in "ImgData" variate.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
-        /// <param name="w">The width of image</param>
-        /// <param name="h">The height of image</param>
+        /// <param name="ImageWidth">The width of image</param>
+        /// <param name="ImageHeight">The height of image</param>
         /// <param name="bpp">The bit depth of image</param>
         /// <param name="channels">The channel of image</param>
         /// <param name="pBuffer">Used to receive image data</param>
         /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDSingleFrame", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern UInt32 GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 w, ref UInt32 h, ref UInt32 bpp, ref UInt32 channels, IntPtr pBuffer);
+        public unsafe static extern UInt32 GetQHYCCDSingleFrame(IntPtr handle, ref UInt32 ImageWidth, ref UInt32 ImageHeight, ref UInt32 bpp, ref UInt32 channels, IntPtr pBuffer);
 
         /// <summary>Used to get image data in live frame mode,and store in pBuffer. If the functionexecutes successfully, it will return QHYCCD_SUCCESS.</summary>
         /// <param name="ImageWidth">Width of the image [pixel].</param>
@@ -305,7 +326,11 @@ namespace QHYCamera
         [DllImport(DLLName, EntryPoint = "GetQHYCCDParamMinMaxStep", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern QHYCamera.QHY.QHYCCD_ERROR GetQHYCCDParamMinMaxStep(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid, ref double min, ref double max, ref double step);
 
+        /// <summary>???</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="Direction">???</param>
+        /// <param name="PulseTime">???</param>
+        /// <returns>On success,return QHYCCD_SUCCESS, another QHYCCD_ERROR code on other failures.</returns>
         [DllImport(DLLName, EntryPoint = "ControlQHYCCDGuide", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 ControlQHYCCDGuide(IntPtr handle, byte Direction, UInt16 PulseTime);
 
@@ -331,6 +356,8 @@ namespace QHYCamera
         [DllImport(DLLName, EntryPoint = "IsQHYCCDControlAvailable", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern QHYCamera.QHY.QHYCCD_ERROR IsQHYCCDControlAvailable(IntPtr handle, QHYCamera.QHY.CONTROL_ID controlid);
 
+        /// <summary>???</summary>
+        /// <param name="targettemp">???</param>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         [DllImport(DLLName, EntryPoint = "ControlQHYCCDShutter", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 ControlQHYCCDShutter(IntPtr handle, byte targettemp);
@@ -390,7 +417,10 @@ namespace QHYCamera
         [DllImport(DLLName, EntryPoint = "GetQHYCCDReadModeResolution", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 GetQHYCCDReadModeResolution(IntPtr handle, UInt32 modeNumber, ref UInt32 width, ref UInt32 height);
 
+        /// <summary>???</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <param name="modeNumber">???</param>
+        /// <returns>If the function executes successfully, QHYCCD_SUCCESS is returned.</returns>
         [DllImport(DLLName, EntryPoint = "SetQHYCCDReadMode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 SetQHYCCDReadMode(IntPtr handle, UInt32 modeNumber);
 
@@ -400,6 +430,9 @@ namespace QHYCamera
         [DllImport(DLLName, EntryPoint = "GetQHYCCDReadMode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 GetQHYCCDReadMode(IntPtr handle, ref UInt32 modeNumber);
 
+        /// <summary>Start camera live frame mode. If the function executes successfully,it will return QHYCCD_SUCCESS.</summary>
+        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
+        /// <returns>If the function executes successfully,it will return QHYCCD_SUCCESS.</returns>
         [DllImport(DLLName, EntryPoint = "BeginQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public unsafe static extern UInt32 BeginQHYCCDLive(IntPtr handle);
 
@@ -416,8 +449,8 @@ namespace QHYCamera
         // =====================================================================================================================================
         // Derived functions
 
-        /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
-        /// <param name="verBuf">Used to store the information about firmware version.</param>
+        //param name="handle"The camera handle returned by OpenQHYCCD.param
+        //param name="verBuf"Used to store the information about firmware version.param
         //public unsafe static UInt32 C_GetQHYCCDFWVersion(IntPtr handle, byte[] verBuf)
         //{
         //    fixed (byte* pverBuf = verBuf)

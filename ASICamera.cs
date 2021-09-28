@@ -54,8 +54,11 @@ namespace ZWO
             ASI_FAN_ON,
             /// <summary>Currently only supported by 1600 mono camera.</summary> 
             ASI_PATTERN_ADJUST,
+            /// <summary>???</summary> 
             ASI_ANTI_DEW_HEATER,
+            /// <summary>???</summary> 
             ASI_HUMIDITY,
+            /// <summary>???</summary> 
             ASI_ENABLE_DDR
         }
 
@@ -222,6 +225,7 @@ namespace ZWO
             }
         };
 
+        /// <summary>Structure to hold the details of a certain control property.</summary> 
         [StructLayout(LayoutKind.Sequential)]
         public struct ASI_CONTROL_CAPS
         {
@@ -231,8 +235,11 @@ namespace ZWO
             /// <summary>Description of this control.</summary> 
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 128)]
             public byte[] Description;
+            /// <summary>Maximum value.</summary> 
             public int MaxValue;
+            /// <summary>Minimum value.</summary> 
             public int MinValue;
+            /// <summary>Default value.</summary> 
             public int DefaultValue;
             /// <summary>Support auto set 1, don't support 0.</summary> 
             public ASI_BOOL IsAutoSupported;
@@ -240,25 +247,28 @@ namespace ZWO
             public ASI_BOOL IsWritable;
             /// <summary>This is used to get value and set value of the control.</summary> 
             public ASI_CONTROL_TYPE ControlType;
+            /// <summary>???</summary> 
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 32)]
             public byte[] Unused;//[32];
-
+            /// <summary>Name as decoded string.</summary> 
             public string NameAsString
             {
                 get { return Encoding.ASCII.GetString(Name).TrimEnd((Char)0); }
             }
-
+            /// <summary>Description as decoded string.</summary> 
             public string DescriptionAsString
             {
                 get { return Encoding.ASCII.GetString(Description).TrimEnd((Char)0); }
             }
         }
 
-
+        /// <summary>Structure to pass to the ASIGetID / ASISetID function.</summary> 
         public struct ASI_ID
         {
+            /// <summary>ID.</summary> 
             [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 8)]
             public byte[] ID;
+            /// <summary>ID as decoded string.</summary> 
             public string IDAsString
             {
                 get { return Encoding.ASCII.GetString(ID).TrimEnd((Char)0); }
