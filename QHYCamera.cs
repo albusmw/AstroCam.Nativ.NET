@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 // Taken from   https://www.qhyccd.com/index.php?m=content&c=index&a=show&catid=127&id=169
 //              https://note.youdao.com/share/?token=9991AC90E811437290EB9AD0D2B15912&gid=7195236
@@ -138,8 +139,8 @@ namespace QHYCamera
             DDR_BUFFER_READ_THRESHOLD
         };
 
-        /// <summary>Bayer pattern orientation.</summary>
-        /// <see cref="https://www.astrofactors.com/on-the-internet/qhy-camera-debayer-pattern.html"/>
+        ///<summary>Bayer pattern orientation.</summary>
+        ///<remarks>http://www.astrofactors.com/on-the-internet/qhy-camera-debayer-pattern.html</remarks>
         public enum BAYER_ID
         {
             /// <summary>GBRG</summary>
