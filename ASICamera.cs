@@ -570,6 +570,7 @@ namespace ZWO
 
         ///<summary>Start a single snap shot. Note that there is a setup time for each snap shot, thus you cannot get two snapshots in succession with a shorter time span that these values.</summary>
         ///<param name="iCameraID">Camera ID to access.</param>
+        ///<param name="bIsDark">?????</param>
         ///<returns>Error code.</returns>
         public static ASI_ERROR_CODE ASIStartExposure(int iCameraID, ASI_BOOL bIsDark)
         { return IntPtr.Size == Isx64 ? ASIStartExposure64(iCameraID, bIsDark) : ASIStartExposure32(iCameraID, bIsDark); }
@@ -597,6 +598,13 @@ namespace ZWO
         public static ASI_ERROR_CODE ASIGetDataAfterExp(int iCameraID, IntPtr pBuffer, int lBuffSize)
         { return IntPtr.Size == Isx64 ? ASIGetDataAfterExp64(iCameraID, pBuffer, lBuffSize) : ASIGetDataAfterExp32(iCameraID, pBuffer, lBuffSize); }
 
+        ///<summary>Get predefined setting.</summary>
+        ///<param name="iCameraID">Camera ID to access.</param>
+        ///<param name="Offset_HighestDR">Offset for highest dynamic range.</param>
+        ///<param name="Offset_UnityGain">Offset for unitity gain setting.</param>
+        ///<param name="Gain_LowestRN">Gain for lowest RN.</param>
+        ///<param name="Offset_LowestRN">Offset for lowest RN.</param>
+        ///<returns>Error code.</returns>
         public static ASI_ERROR_CODE ASIGetGainOffset(int iCameraID, out int Offset_HighestDR, out int Offset_UnityGain, out int Gain_LowestRN, out int Offset_LowestRN)
         { return IntPtr.Size == Isx64 ? ASIGetGainOffset64(iCameraID, out Offset_HighestDR, out Offset_UnityGain, out Gain_LowestRN, out Offset_LowestRN) : ASIGetGainOffset32(iCameraID, out Offset_HighestDR, out Offset_UnityGain, out Gain_LowestRN, out Offset_LowestRN); }
 
