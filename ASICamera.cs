@@ -72,14 +72,19 @@ namespace ZWO
         public enum ASI_IMG_TYPE
         {
             /// <summary>Each pixel is an 8 bit (1 byte) gray level.</summary> 
+            [System.ComponentModel.Description("8-bit gray")]
             ASI_IMG_RAW8 = 0,
             /// <summary>Each pixel consists of RGB, 3 bytes totally (color cameras only).</summary> 
+            [System.ComponentModel.Description("24-bit color")]
             ASI_IMG_RGB24,
             /// <summary>2 byte s for every pixel with 65536 gray levels.</summary> 
+            [System.ComponentModel.Description("16-bit gray")]
             ASI_IMG_RAW16,
             /// <summary>Mono chrome mode 1 byte every pixel (color camer as only).</summary> 
+            [System.ComponentModel.Description("8-bit chroma")]
             ASI_IMG_Y8,
             /// <summary>End-of-enum.</summary> 
+            [System.ComponentModel.Description("End-of-enum")]
             ASI_IMG_END = -1
         }
 
@@ -435,6 +440,12 @@ namespace ZWO
         [DllImport(DLLx64, EntryPoint = "ASISetID", CallingConvention = DLLCallCon)]
         private static extern ASI_ERROR_CODE ASISetID64(int iCameraID, ASI_ID ID);
 
+        [DllImport(DLLx32, EntryPoint = "ASIGetDroppedFrames", CallingConvention = DLLCallCon)]
+        private static extern ASI_ERROR_CODE ASIGetDroppedFrames32(int iCameraID, out int DropFrames);
+
+        [DllImport(DLLx64, EntryPoint = "ASIGetDroppedFrames", CallingConvention = DLLCallCon)]
+        private static extern ASI_ERROR_CODE ASIGetDroppedFrames64(int iCameraID, out int DropFrames);
+
         ///====================================================================================================================================================
 
         ///<summary>Get the count of connected ASI cameras.</summary>
@@ -621,6 +632,14 @@ namespace ZWO
         ///<returns>Error code.</returns>
         public static ASI_ERROR_CODE ASISetID(int iCameraID, ASI_ID ID)
         { return IntPtr.Size == Isx64 ? ASISetID64(iCameraID, ID) : ASISetID32(iCameraID, ID); }
+
+        ///<summary>Get dropped frames' count during video capture.</summary>
+        ///<param name="iCameraID">Camera ID to access.</param>
+        ///<param name="piDropFrames">Number of dropped frames.</param>
+        ///<returns>Error code.</returns>
+        ///<remarks>The position is relative to the image after binning.</remarks>
+        public static ASI_ERROR_CODE ASIGetDroppedFrames(int iCameraID, out int piDropFrames)
+        { return IntPtr.Size == Isx64 ? ASIGetDroppedFrames64(iCameraID, out piDropFrames) : ASIGetDroppedFrames32(iCameraID, out piDropFrames); }
 
     }
 
