@@ -19,14 +19,15 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\src\bin\ASI_ZWO\ASICamera2_x64.dll">
-      <Link>ASICamera2_x64.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\src\bin\QHY\x64\qhyccd.dll">
       <Link>qhyccd.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\bin\ASI_ZWO\ASICamera2.dll" Link="ASICamera2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
