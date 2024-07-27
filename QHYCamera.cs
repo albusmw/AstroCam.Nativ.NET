@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using static System.Net.WebRequestMethods;
 
 // Taken from   https://www.qhyccd.com/index.php?m=content&c=index&a=show&catid=127&id=169
 //              https://note.youdao.com/share/?token=9991AC90E811437290EB9AD0D2B15912&gid=7195236
@@ -183,12 +181,12 @@ namespace QHYCamera
         /// <param name="index">This is the index of the array of camera structure,and must be lower than the equal of ScanQHYCCD(); return value</param>
         /// <param name="id">A pointer variate which is char type,it is used to receive camera ID that returned by function.</param>
         [DllImport(DLLName, EntryPoint = "GetQHYCCDId",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern UInt32 GetQHYCCDId(int index, StringBuilder id);
+        public unsafe static extern UInt32 GetQHYCCDId(int index, System.Text.StringBuilder id);
 
         /// <summary>The camera will be turned on according to the ID returned by GetQHYCCDId, and if the function execute successfully, the function will return camera handle.If the handle is not empty, that mean the function executes successfully.Then all operate functions need this handle as parameter.</summary>
         /// <param name="id">The camera ID returned by GetQHYCCDId()</param>
         [DllImport(DLLName, EntryPoint = "OpenQHYCCD",CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
-        public unsafe static extern IntPtr OpenQHYCCD(StringBuilder id);
+        public unsafe static extern IntPtr OpenQHYCCD(System.Text.StringBuilder id);
 
         /// <summary>This function will initialize the camera hardware and other basic settings This function should be call after SetQHYCCDStreamMode. After this function called. The camera hardware will be ready to use.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
@@ -400,51 +398,51 @@ namespace QHYCamera
         /// <summary>Get the number of read-out modes available for the connected camera.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <param name="numModes">Number of different read-out modes supported.</param>
-        [DllImport(DLLName, EntryPoint = "GetQHYCCDNumberOfReadModes", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "GetQHYCCDNumberOfReadModes", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDNumberOfReadModes(IntPtr handle, ref UInt32 numModes);
 
         /// <summary>Get the name of the specified read-out mode.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <param name="modeNumber">0-based read-out mode number.</param>
         /// <param name="name">Name of the specific mode.</param>
-        [DllImport(DLLName, EntryPoint = "GetQHYCCDReadModeName", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-        public unsafe static extern UInt32 GetQHYCCDReadModeName(IntPtr handle, UInt32 modeNumber, StringBuilder name);
+        [DllImport(DLLName, EntryPoint = "GetQHYCCDReadModeName", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
+        public unsafe static extern UInt32 GetQHYCCDReadModeName(IntPtr handle, UInt32 modeNumber, System.Text.StringBuilder name);
 
         /// <summary>Get the resolution available for the specified read-out mode.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <param name="modeNumber">0-based read-out mode number.</param>
         /// <param name="width">Width [pixel] for this mode.</param>
         /// <param name="height">Height [pixel] for this mode.</param>
-        [DllImport(DLLName, EntryPoint = "GetQHYCCDReadModeResolution", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "GetQHYCCDReadModeResolution", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDReadModeResolution(IntPtr handle, UInt32 modeNumber, ref UInt32 width, ref UInt32 height);
 
         /// <summary>???</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <param name="modeNumber">???</param>
         /// <returns>If the function executes successfully, QHYCCD_SUCCESS is returned.</returns>
-        [DllImport(DLLName, EntryPoint = "SetQHYCCDReadMode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "SetQHYCCDReadMode", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 SetQHYCCDReadMode(IntPtr handle, UInt32 modeNumber);
 
         /// <summary>Get the selected read-out mode.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <param name="modeNumber">Read-out modes selected.</param>
-        [DllImport(DLLName, EntryPoint = "GetQHYCCDReadMode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "GetQHYCCDReadMode", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 GetQHYCCDReadMode(IntPtr handle, ref UInt32 modeNumber);
 
         /// <summary>Start camera live frame mode. If the function executes successfully,it will return QHYCCD_SUCCESS.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <returns>If the function executes successfully,it will return QHYCCD_SUCCESS.</returns>
-        [DllImport(DLLName, EntryPoint = "BeginQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "BeginQHYCCDLive", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 BeginQHYCCDLive(IntPtr handle);
 
         /// <summary>Stopping camera live frame mode. If the function executes successfully,it will return QHYCCD_SUCCESS.</summary>
         /// <param name="handle">The camera handle returned by OpenQHYCCD.</param>
         /// <returns>If the function executes successfully,it will return QHYCCD_SUCCESS.</returns>
-        [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "StopQHYCCDLive", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 StopQHYCCDLive(IntPtr handle);
 
         /// <summary>Check if a filter wheel is connected - does NOT work on QHY600.</summary>
-        [DllImport(DLLName, EntryPoint = "IsQHYCCDCFWPlugged", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [DllImport(DLLName, EntryPoint = "IsQHYCCDCFWPlugged", CharSet = DLLCharSet, CallingConvention = DLLCallCon)]
         public unsafe static extern UInt32 IsQHYCCDCFWPlugged(IntPtr handle);
 
         // =====================================================================================================================================
