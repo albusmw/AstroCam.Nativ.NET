@@ -3,6 +3,13 @@ namespace MoravianCameraSDK
     public class Enums
     {
 
+        public enum eBoolAndError : uint
+        {
+            bTrue = 0,
+            bFalse =1,
+            error = 2
+        };
+
         public enum eBoolParameters : uint
         {
             /// <summary>TRUE if camera currently connected</summary>
