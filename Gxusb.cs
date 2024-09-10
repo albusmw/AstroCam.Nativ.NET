@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace MoravianCameraSDK
 {
+    // 'gxusb.dll' handles all CCD-based Gx cameras (G0 to G4, Mark I and Mark II) connected directly to the host computer through USB 2.0 hi-speed lines(480 Mbps).
     public class Gxusb
     {
 
