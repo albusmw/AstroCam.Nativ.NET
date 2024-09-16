@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 
 namespace MoravianCameraSDK
@@ -7,7 +6,6 @@ namespace MoravianCameraSDK
 
     using INTEGER = System.Int32;
     using CARDINAL = System.UInt32;
-    using static System.Runtime.InteropServices.JavaScript.JSType;
 
     ///<summary>'cxusb.dll' driver handles large cooled C1×, C3, C4 and C5 camera lines, as well as a rollingshutter sensor based C2-9000.</summary>
     public class Cxusb
@@ -16,7 +14,6 @@ namespace MoravianCameraSDK
         const string CameraDriverDllName = "cxusb.dll";
         const CallingConvention DLLCallCon = CallingConvention.Cdecl;
         const CharSet DLLCharSet = CharSet.Ansi;
-
 
         // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
         // Camera Enumeration / Connection

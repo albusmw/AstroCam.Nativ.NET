@@ -1,18 +1,23 @@
+using System;
+
 namespace MoravianCameraSDK
 {
     ///<summary>Available enums.</summary>
     public class Enums
     {
 
+        public const Byte BOOL_TRUE = 1;
+        public const Byte BOOL_FALSE = 0;
+
         ///<summary>Boolean values including error.</summary>
         public enum eBoolAndError : uint
         {
             ///<summary>TRUE.</summary>
-            bTrue = 0,
+            bTrue ,
             ///<summary>FALSE.</summary>
-            bFalse = 1,
+            bFalse ,
             ///<summary>Error.</summary>
-            error = 2
+            error 
         };
 
         ///<summary>Parameters that return a boolean parameter.</summary>
