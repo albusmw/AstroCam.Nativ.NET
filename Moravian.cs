@@ -1,15 +1,21 @@
 namespace MoravianCameraSDK
 {
+    ///<summary>Available enums.</summary>
     public class Enums
     {
 
+        ///<summary>Boolean values including error.</summary>
         public enum eBoolAndError : uint
         {
+            ///<summary>TRUE.</summary>
             bTrue = 0,
-            bFalse =1,
+            ///<summary>FALSE.</summary>
+            bFalse = 1,
+            ///<summary>Error.</summary>
             error = 2
         };
 
+        ///<summary>Parameters that return a boolean parameter.</summary>
         public enum eBoolParameters : uint
         {
             /// <summary>TRUE if camera currently connected</summary>
@@ -64,6 +70,7 @@ namespace MoravianCameraSDK
             gbpInterlaced = 256
         }
 
+        ///<summary>Parameters that return a integer parameter.</summary>
         public enum eIntParameters : uint
         {
             /// <summary>Identifier of the current camera</summary>
@@ -125,6 +132,7 @@ namespace MoravianCameraSDK
             gipFlashBuild = 136
         };
 
+        ///<summary>Parameters that return a string parameter.</summary>
         public enum eStringParameters : uint
         {
             /// <summary>Camera description</summary>
@@ -137,6 +145,7 @@ namespace MoravianCameraSDK
             gspChipDescription = 3
         };
 
+        ///<summary>Parameters that return a floating point parameter.</summary>
         public enum eValueParameters : uint
         {
             /// <summary>Current temperature of the CCD detector in deg. Celsius</summary>
