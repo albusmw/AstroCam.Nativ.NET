@@ -191,6 +191,9 @@ namespace MoravianCameraSDK
         public static extern byte ReadImage(UIntPtr Handle, uint BufferLen, ushort[] BufferAdr);
 
         [DllImport(CameraDriverDllName, CallingConvention = DLLCallCon)]
+        public static extern byte ReadImage(UIntPtr Handle, uint BufferLen, ushort[,] BufferAdr);
+
+        [DllImport(CameraDriverDllName, CallingConvention = DLLCallCon)]
         public static extern byte ReadImageExposure(UIntPtr Handle, uint BufferLen, ushort[] BufferAdr);
 
         // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
