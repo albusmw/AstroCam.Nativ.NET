@@ -12,10 +12,10 @@
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\src\bin\QHY\x64\qhyccd.dll">
+    <None Include="..\src\bin\QHY\x64\qhyccd.dll">
       <Link>qhyccd.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\bin\ASI_ZWO\ASICamera2.dll" Link="ASICamera2.dll">
@@ -28,6 +28,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="..\src\bin\Moravian\x64\gXusb.dll" Link="gXusb.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\src\bin\Moravian\x64\sfw.dll" Link="sfw.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
