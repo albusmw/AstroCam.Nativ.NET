@@ -3,6 +3,10 @@ using System.Runtime.InteropServices;
 
 namespace MoravianCameraSDK
 {
+
+    using INTEGER = System.Int32;
+    using CARDINAL = System.UInt32;
+
     public class Sfw
     {
 
@@ -31,6 +35,36 @@ namespace MoravianCameraSDK
         ///<remarks>No other function (with the exception of 'Enumerate' and 'Initialize') may be called after the 'Release' call.</remarks>
         [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
         public static extern void Release(UIntPtr Handle);
+
+        ///<summary>The filter wheel performs the initialization, during which the zero filter position is found and set..</summary>
+        ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
+        [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
+        public static extern byte ReinitFilterWheel(UIntPtr Handle);
+
+        ///<summary>Returns integer value depending on the Index parameter.</summary>
+        ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
+        ///<param name="Index">Index = parameter to read value.</param>
+        ///<param name="Value">Value read.</param>
+        ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
+        [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
+        public static extern byte GetBoolean(UIntPtr Handle, Enums.eBoolParameters Index, out byte Value);
+
+        ///<summary>Returns integer value depending on the Index parameter.</summary>
+        ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
+        ///<param name="Index">Index = parameter to read value.</param>
+        ///<param name="Value">Value read.</param>
+        ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
+        [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
+        public static extern byte GetInteger(UIntPtr Handle, Enums.eIntParameters Index, out INTEGER Value);
+
+        ///<summary>Returns string value depending on the Index parameter.</summary>
+        ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
+        ///<param name="Index">Index = parameter to read value.</param>
+        ///<param name="StringBufferLastIndex">Last 0-based index of the string buffer (if the buffer is 128 character long, the value is 127).</param>
+        ///<param name="String">Value read.</param>
+        ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
+        [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon, CharSet = DLLCharSet)]
+        public static extern byte GetString(UIntPtr Handle, Enums.eStringParameters Index, int StringBufferLastIndex, System.Text.StringBuilder String);
 
     }
 }
