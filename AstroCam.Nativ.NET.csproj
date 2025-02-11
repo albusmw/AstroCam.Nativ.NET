@@ -12,9 +12,6 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\src\bin\Moravian\x64\sfw.dll" Link="sfw.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="..\src\bin\QHY\x64\qhyccd.dll">
       <Link>qhyccd.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

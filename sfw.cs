@@ -66,5 +66,11 @@ namespace MoravianCameraSDK
         [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon, CharSet = DLLCharSet)]
         public static extern byte GetString(UIntPtr Handle, Enums.eStringSFW Index, int StringBufferLastIndex, System.Text.StringBuilder String);
 
+        ///<summary>Sets the required filter.</summary>
+        ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
+        ///<param name="Value">Filter index.</param>
+        [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
+        public static extern byte SetFilter(UIntPtr Handle, CARDINAL Value);
+
     }
 }
