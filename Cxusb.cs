@@ -54,7 +54,7 @@ namespace MoravianCameraSDK
         ///<param name="Value">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(CameraDriverDllName, CallingConvention = DLLCallCon)]
-        public static extern byte GetBooleanParameter(UIntPtr Handle, Enums.eBoolParameters Index, out byte Value);
+        public static extern byte GetBooleanParameter(UIntPtr Handle, Enums.eBoolCamera Index, out byte Value);
 
         ///<summary>Returns integer value depending on the Index parameter.</summary>
         ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
@@ -62,7 +62,7 @@ namespace MoravianCameraSDK
         ///<param name="Value">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(CameraDriverDllName, CallingConvention = DLLCallCon)]
-        public static extern byte GetIntegerParameter(UIntPtr Handle, Enums.eIntParameters Index, out INTEGER Value);
+        public static extern byte GetIntegerParameter(UIntPtr Handle, Enums.eIntCamera Index, out INTEGER Value);
 
         ///<summary>Returns float value depending on the Index parameter.</summary>
         ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
@@ -70,7 +70,7 @@ namespace MoravianCameraSDK
         ///<param name="Value">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(CameraDriverDllName, CallingConvention = DLLCallCon)]
-        public static extern byte GetValue(UIntPtr Handle, Enums.eValueParameters Index, out float Value);
+        public static extern byte GetValue(UIntPtr Handle, Enums.eValueCamera Index, out float Value);
 
         ///<summary>Returns string value depending on the Index parameter.</summary>
         ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
@@ -79,7 +79,7 @@ namespace MoravianCameraSDK
         ///<param name="String">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(CameraDriverDllName, CallingConvention = DLLCallCon, CharSet = DLLCharSet)]
-        public static extern byte GetStringParameter(UIntPtr Handle, Enums.eStringParameters Index, int StringBufferLastIndex, System.Text.StringBuilder String);
+        public static extern byte GetStringParameter(UIntPtr Handle, Enums.eStringCamera Index, int StringBufferLastIndex, System.Text.StringBuilder String);
 
         ///<summary>Enumerates all read modes provided by the camera.</summary>
         ///<param name="Handle">Camera handle as returned during the Initialize call.</param>

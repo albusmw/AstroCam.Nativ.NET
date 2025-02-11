@@ -47,7 +47,7 @@ namespace MoravianCameraSDK
         ///<param name="Value">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
-        public static extern byte GetBoolean(UIntPtr Handle, Enums.eBoolParameters Index, out byte Value);
+        public static extern byte GetBoolean(UIntPtr Handle, Enums.eBoolSFW Index, out byte Value);
 
         ///<summary>Returns integer value depending on the Index parameter.</summary>
         ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
@@ -55,7 +55,7 @@ namespace MoravianCameraSDK
         ///<param name="Value">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon)]
-        public static extern byte GetInteger(UIntPtr Handle, Enums.eIntParameters Index, out INTEGER Value);
+        public static extern byte GetInteger(UIntPtr Handle, Enums.eIntSFW Index, out INTEGER Value);
 
         ///<summary>Returns string value depending on the Index parameter.</summary>
         ///<param name="Handle">Camera handle as returned during the Initialize call.</param>
@@ -64,7 +64,7 @@ namespace MoravianCameraSDK
         ///<param name="String">Value read.</param>
         ///<returns>If the function does not 'understand' the passed Index, it returns FALSE.</returns>
         [DllImport(FilterWheelDriverDllName, CallingConvention = DLLCallCon, CharSet = DLLCharSet)]
-        public static extern byte GetString(UIntPtr Handle, Enums.eStringParameters Index, int StringBufferLastIndex, System.Text.StringBuilder String);
+        public static extern byte GetString(UIntPtr Handle, Enums.eStringSFW Index, int StringBufferLastIndex, System.Text.StringBuilder String);
 
     }
 }

@@ -21,7 +21,7 @@ namespace MoravianCameraSDK
         };
 
         ///<summary>Parameters that return a boolean parameter.</summary>
-        public enum eBoolParameters : uint
+        public enum eBoolCamera : uint
         {
             /// <summary>TRUE if camera currently connected</summary>
             gbpConnected = 0,
@@ -75,8 +75,21 @@ namespace MoravianCameraSDK
             gbpInterlaced = 256
         }
 
+        ///<summary>Parameters that return a boolean parameter.</summary>
+        public enum eBoolSFW : uint
+        {
+            /// <summary>TRUE if filter wheel currently connected.</summary>
+            gbConnected = 0,
+            /// <summary>TRUE if filter wheel initialized (zero filter position found).</summary>
+            gbInitialized = 1,
+            /// <summary>TRUE if filter focusing offsets are expressed in micrometers.</summary>
+            gbMicrometerFilterOffsets = 2,
+            /// <summary>TRUE if camera is configured.</summary>
+            gbpConfigured = 127,
+        }
+
         ///<summary>Parameters that return a integer parameter.</summary>
-        public enum eIntParameters : uint
+        public enum eIntCamera : uint
         {
             /// <summary>Identifier of the current camera</summary>
             gipCameraId = 0,
@@ -137,8 +150,25 @@ namespace MoravianCameraSDK
             gipFlashBuild = 136
         };
 
+        ///<summary>Parameters that return a integer parameter.</summary>
+        public enum eIntSFW : uint
+        {
+            /// <summary>Filter wheel drive major version.</summary>
+            giVersion1 = 0,
+            /// <summary>Filter wheel drive minor version.</summary>
+            giVersion2 = 1,
+            /// <summary>Filter wheel drive build version.</summary>
+            giVersion3 = 2,
+            /// <summary>Filter wheel drive release version.</summary>
+            giVersion4 = 3,
+            /// <summary>Unique identifier of the standalone filter wheel.</summary>
+            giFilterWheelId = 4,
+            /// <summary>Number of filters available.</summary>
+            giFilters = 5,
+        };
+
         ///<summary>Parameters that return a string parameter.</summary>
-        public enum eStringParameters : uint
+        public enum eStringCamera : uint
         {
             /// <summary>Camera description</summary>
             gspCameraDescription = 0,
@@ -150,8 +180,19 @@ namespace MoravianCameraSDK
             gspChipDescription = 3
         };
 
+        ///<summary>Parameters that return a string parameter.</summary>
+        public enum eStringSFW : uint
+        {
+            /// <summary>Filter wheel description.</summary>
+            gsFWDescription = 0,
+            /// <summary>Manufacturer name.</summary>
+            gsManufacturer = 1,
+            /// <summary>Filter wheel serial number.</summary>
+            gsSerialNumber = 2,
+        };
+
         ///<summary>Parameters that return a floating point parameter.</summary>
-        public enum eValueParameters : uint
+        public enum eValueCamera : uint
         {
             /// <summary>Current temperature of the CCD detector in deg. Celsius</summary>
             gvChipTemperature = 0,
